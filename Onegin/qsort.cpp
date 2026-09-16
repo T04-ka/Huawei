@@ -20,12 +20,25 @@ enum Cmp    {
     MORE = 1
 };
 
-void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr);
 
+//----------------------------------------------------------------------------------------------------------------
+Cmp numcmp(void* a, void *b);
+
+
+//----------------------------------------------------------------------------------------------------------------
+//void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr);
+void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr, Cmp (*cmp)(void *a, void *b));
+
+
+//----------------------------------------------------------------------------------------------------------------
 void swap(void* *i, void* *j);
 
+
+//----------------------------------------------------------------------------------------------------------------
 void printArr(void* *arr, size_t size = 0, size_t lB = 0, size_t rB = 0, size_t l = 0, size_t r = 0, int mid = 0, const char *com = "");
 
+
+//----------------------------------------------------------------------------------------------------------------
 int main(){
 
     int numArr[] = {6,5,4,3,6};
@@ -41,12 +54,13 @@ int main(){
 
     printArr(arr, SZ);
 
-    qsort((void **)arr, 0, SZ - 1);
+    qsort((void **)arr, 0, SZ - 1, &numcmp);
 
     printArr(arr, SZ);
 }
 
 
+//----------------------------------------------------------------------------------------------------------------
 void printArr(void* *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, int mid, const char *com){
 
     printf("%sMID = %d\n", com, mid);
@@ -84,8 +98,21 @@ void printArr(void* *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r,
     getchar();
 }
 
-//Cmp (*cmp)(void *a, void *b)
-void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr){
+
+//----------------------------------------------------------------------------------------------------------------
+Cmp numcmp(void* a, void *b){
+
+    int va = *((int *) a);
+    int vb = *((int *) b);
+
+    if (va > vb)  return MORE;
+    if (va < vb)  return LESS;
+    return EQ;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------
+void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr, Cmp (*cmp)(void *a, void *b)){
 
           //  assert(arr != NULL);
 
@@ -103,9 +130,6 @@ void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr){
             size_t rightptr = rightbrdr;
 
             //pdbg("Start qsort\n");
-
-
-
 
             while (leftptr < rightptr){
 
@@ -144,11 +168,13 @@ void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr){
 
             //pdbg("After cicl\n");
 
-            qsort(arr, leftbrdr, leftptr - 1);
-            qsort(arr, rightptr + 1, rightbrdr);
+            qsort(arr, leftbrdr, leftptr - 1, cmp);
+            qsort(arr, rightptr + 1, rightbrdr, cmp);
 }
 
 
+
+//----------------------------------------------------------------------------------------------------------------
 void swap(void* *i, void* *j){
 //void swap(void **i, void **j){
 
