@@ -72,13 +72,18 @@ void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, i
     printf("| %lu | %lu", r, rB);
     putchar('\n');
 
-    getchar();
+    //getchar();
 }
 
 //Cmp (*cmp)(void *a, void *b)
 void qsort(int* arr, size_t leftbrdr, size_t rightbrdr){
 
             assert(arr != NULL);
+
+            if (leftbrdr >= rightbrdr){
+
+                return;
+            }
 
             assert(leftbrdr < rightbrdr);
             assert(leftbrdr >= 0);
@@ -92,10 +97,7 @@ void qsort(int* arr, size_t leftbrdr, size_t rightbrdr){
 
             pdbg("Start qsort\n");
 
-            if (rightptr - leftptr <= 1){
 
-                return;
-            }
 
 
             while (leftptr < rightptr){
@@ -111,7 +113,7 @@ void qsort(int* arr, size_t leftbrdr, size_t rightbrdr){
 
                 if (arr[leftptr] >=  midval) {
 
-                    while (arr[rightptr] > midval)
+                    while (rightptr > leftptr && arr[rightptr] > midval)
                     {
                         --rightptr;
                         /*
@@ -141,8 +143,8 @@ void qsort(int* arr, size_t leftbrdr, size_t rightbrdr){
 
             pdbg("After cicl\n");
 
-            qsort(arr, leftbrdr, leftptr);
-            qsort(arr, rightptr, rightbrdr);
+            qsort(arr, leftbrdr, leftptr - 1);
+            qsort(arr, rightptr + 1, rightbrdr);
 }
 
 void swap(int *arr, size_t i, size_t j){
