@@ -3,7 +3,7 @@
 
 #define SZ 5
 
-#define pdbg(A)  printArr(arr, SZ, leftbrdr, rightbrdr, leftptr, rightptr, midval, A);
+#define pdbg(A)  printArr(arr, SZ, leftbrdr, rightbrdr, leftptr, rightptr, *((int*) midval), A);
 
 #define RED "\e[31m"
 #define BLUE "\e[34m"
@@ -124,7 +124,7 @@ void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr, Cmp (*cmp)(void *a, v
             assert(leftbrdr < rightbrdr);
             assert(leftbrdr >= 0);
             */
-            int midval = *( (int*) arr[(leftbrdr + rightbrdr)/2]);
+            void* midval = arr[(leftbrdr + rightbrdr)/2];
 
             size_t leftptr = leftbrdr;
             size_t rightptr = rightbrdr;
@@ -140,9 +140,9 @@ void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr, Cmp (*cmp)(void *a, v
                 assert(rightptr <= rightbrdr);
                 assert(leftptr >= leftbrdr);
                 */
-                if (*((int*) arr[leftptr]) >=  midval) {
+                if ((*cmp)(arr[leftptr], midval) >= 0) {
 
-                    while (rightptr > leftptr && *((int*) arr[rightptr]) > midval)
+                    while (rightptr > leftptr && (*cmp)(arr[rightptr], midval) > 0)
                     {
                         --rightptr;
                         /*
@@ -151,7 +151,7 @@ void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr, Cmp (*cmp)(void *a, v
                         assert(rightptr <= rightbrdr);
                         assert(leftptr >= leftbrdr);
                         */
-                        //printf("CICL rptr = %lu\n", rightptr);
+                        //pdbg("Rfind cicl\n");
                     }
 
                     //pdbg("BEFORESWAP\n");
