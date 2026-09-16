@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#define SZ 6
+#define SZ 5
 
 #define pdbg(A)  printArr(arr, SZ, leftbrdr, rightbrdr, leftptr, rightptr, midval, A);
 
@@ -20,25 +20,34 @@ enum Cmp    {
     MORE = 1
 };
 
-void qsort(int* arr, size_t leftbrdr, size_t rightbrdr);
+void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr);
 
-void swap(int *arr, size_t i, size_t j);
+void swap(void* *i, void* *j);
 
-void printArr(int *arr, size_t size, size_t lB = 0, size_t rB = 0, size_t l = 0, size_t r = 0, int mid = 0, const char *com = "");
+void printArr(void* *arr, size_t size = 0, size_t lB = 0, size_t rB = 0, size_t l = 0, size_t r = 0, int mid = 0, const char *com = "");
 
 int main(){
 
-    int arr[] = {8,8,9,10,8,1};
+    int numArr[] = {6,5,4,3,6};
+
+    void* arr[] = {
+        (void*) numArr,
+        (void*) (numArr + 1),
+        (void*) (numArr + 2),
+        (void*) (numArr + 3),
+        (void*) (numArr + 4),
+        (void*) (numArr + 5),
+    };
 
     printArr(arr, SZ);
 
-    qsort(arr, 0, SZ - 1);
+    qsort((void **)arr, 0, SZ - 1);
 
     printArr(arr, SZ);
 }
 
 
-void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, int mid, const char *com){
+void printArr(void* *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, int mid, const char *com){
 
     printf("%sMID = %d\n", com, mid);
 
@@ -64,7 +73,7 @@ void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, i
             printf(YELLOW);
         }
 
-        printf("%d ", arr[i]);
+        printf("%d ", *((int*)(arr)[i]));
 
         printf(DEF);
     }
@@ -72,48 +81,44 @@ void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, i
     printf("| %lu | %lu", r, rB);
     putchar('\n');
 
-    //getchar();
+    getchar();
 }
 
 //Cmp (*cmp)(void *a, void *b)
-void qsort(int* arr, size_t leftbrdr, size_t rightbrdr){
+void qsort(void* arr[], size_t leftbrdr, size_t rightbrdr){
 
-            assert(arr != NULL);
+          //  assert(arr != NULL);
 
             if (leftbrdr >= rightbrdr){
 
                 return;
             }
-
+            /*
             assert(leftbrdr < rightbrdr);
             assert(leftbrdr >= 0);
-
-            bool was_swap = 0;
-
-            int midval = arr[(leftbrdr + rightbrdr)/2];
+            */
+            int midval = *( (int*) arr[(leftbrdr + rightbrdr)/2]);
 
             size_t leftptr = leftbrdr;
             size_t rightptr = rightbrdr;
 
-            pdbg("Start qsort\n");
+            //pdbg("Start qsort\n");
 
 
 
 
             while (leftptr < rightptr){
 
-              //  printArr(arr, SZ, leftbrdr, rightbrdr, leftptr, rightptr, "Begin of cicl\n");
-
-                pdbg("Begin of cicl\n");
-
+                //pdbg("Begin of cicl\n");
+                /*
                 assert(rightptr >= leftbrdr);
                 assert(leftptr <= rightbrdr);
                 assert(rightptr <= rightbrdr);
                 assert(leftptr >= leftbrdr);
+                */
+                if (*((int*) arr[leftptr]) >=  midval) {
 
-                if (arr[leftptr] >=  midval) {
-
-                    while (rightptr > leftptr && arr[rightptr] > midval)
+                    while (rightptr > leftptr && *((int*) arr[rightptr]) > midval)
                     {
                         --rightptr;
                         /*
@@ -125,32 +130,30 @@ void qsort(int* arr, size_t leftbrdr, size_t rightbrdr){
                         //printf("CICL rptr = %lu\n", rightptr);
                     }
 
-                    pdbg("BEFORESWAP\n");
+                    //pdbg("BEFORESWAP\n");
 
                     //printf("RPTR = %lu\n", rightptr);
-                    was_swap = 1;
-                    swap(arr, leftptr, rightptr);
+                    swap(arr + leftptr, arr + rightptr);
 
-                    pdbg("AFTERSWAP\n");
+                    //pdbg("AFTERSWAP\n");
 
                 }
 
                 leftptr++;
             }
 
-            if (!was_swap)
-                return;
-
-            pdbg("After cicl\n");
+            //pdbg("After cicl\n");
 
             qsort(arr, leftbrdr, leftptr - 1);
             qsort(arr, rightptr + 1, rightbrdr);
 }
 
-void swap(int *arr, size_t i, size_t j){
 
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
+void swap(void* *i, void* *j){
+//void swap(void **i, void **j){
+
+    void* temp = *i;
+    *i = *j;
+    *j = temp;
 }
 
