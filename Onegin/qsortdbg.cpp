@@ -61,23 +61,12 @@ int main(){
 
     const size_t sz = 6;
 
-    for (size_t i = 0; i < sz; i++){
+    printArr(arr, sz);
 
-        printf("%d ", arr[i]);
-    }
-    putchar('\n');
-
-    //printArr(arr, sz);
-    printf("ZZZ");
     qsort((void *) arr, sizeof(arr), sizeof(arr[0]), (int (*)(void*, void*)) &numcmp);
 
-    //printArr(arr, sz);
+    printArr(arr, sz);
 
-    for (size_t i = 0; i < sz; i++){
-
-        printf("%d ", arr[i]);
-    }
-    putchar('\n');
 }
 
 
@@ -121,7 +110,6 @@ void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, i
     printf("| %lu | %lu", r, rB);
     putchar('\n');
  
-    printf("ZZZ");   
     getchar();
     
 }
@@ -140,7 +128,7 @@ Cmp numcmp(void* a, void *b){
 
 
 //----------------------------------------------------------------------------------------------------------------
-void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void *b)){
+void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, void *e2ptr)){
 
             assert(arr != NULL);
 
@@ -153,6 +141,8 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void 
             }
             
             void* pivot = (void*) ((char*) arr + elemsize * (leftbrdr + rightbrdr)/2);
+            printf("PIVOT = %p\n", pivot);
+            printf("PIVOTval = %d\n", *((int*)pivot));
 
             size_t leftptr = leftbrdr;
             size_t rightptr = rightbrdr;
@@ -161,7 +151,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void 
 
             while (leftptr < rightptr){
 
-                pdbg("Begin of cicl\n");
+                //pdbg("Begin of cicl\n");
                 
                 assert(rightptr >= leftbrdr);
                 assert(leftptr <= rightbrdr);
@@ -173,6 +163,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void 
 
                 if ((*cmp)((void*) ((char*) arr + elemsize * leftptr), pivot) >= 0) {
 
+                    printf(RED"ZZZ\n");
                     while (rightptr > leftptr && (*cmp)((void*) ((char*) arr + elemsize * rightptr), pivot) > 0)
                     {
                         --rightptr;
@@ -182,22 +173,24 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void 
                         assert(rightptr <= rightbrdr);
                         assert(leftptr >= leftbrdr);
                         
-                        pdbg("Rfind cicl\n");
+                        //pdbg("Rfind cicl\n");
                     }
 
-                    pdbg("BEFORESWAP\n");
+                    //pdbg("BEFORESWAP\n");
 
                     //printf("RPTR = %lu\n", rightptr);
                     swap((void*) ((char*) arr + elemsize * leftptr), (void*) ((char*) arr + elemsize * rightptr), elemsize);
 
-                    pdbg("AFTERSWAP\n");
+                    //pdbg("AFTERSWAP\n");
 
                 }
+
+                printf(RED"ZZZ\n");
 
                 leftptr++;
             }
 
-            pdbg("After cicl\n");
+            //pdbg("After cicl\n");
 
             qsort(arr, elemsize, elemsize * (leftptr - leftbrdr), cmp);
             qsort((void*) ((char*) arr + elemsize * (rightptr + 1)), elemsize, elemsize * (rightbrdr - rightptr), cmp);
