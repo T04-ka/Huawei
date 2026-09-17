@@ -61,11 +61,17 @@ int main(){
 
     const size_t sz = 6;
 
-    printArr(arr, sz);
+    for (int i = 0; i < sz; i++){
+
+        printf("%d ", arr[i]);
+    }
+    putchar('\n');
+
+    //printArr(arr, sz);
     printf("ZZZ");
     qsort((void *) arr, sizeof(arr), sizeof(arr[0]), (int (*)(void*, void*)) &numcmp);
 
-    printArr(arr, sz);
+    //printArr(arr, sz);
 }
 
 
@@ -140,15 +146,12 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void 
                 return;
             }
             
-            assert(leftbrdr < rightbrdr);
-            assert(leftbrdr >= 0);
-            
             void* pivot = (void*) ((char*) arr + elemsize * (leftbrdr + rightbrdr)/2);
 
             size_t leftptr = leftbrdr;
             size_t rightptr = rightbrdr;
 
-            pdbg("Start qsort\n");
+            //pdbg("Start qsort\n");
 
             while (leftptr < rightptr){
 
