@@ -1,9 +1,10 @@
+/*
 #ifndef QSORT_CPP
 #define QSORT_CPP
 #include <stdio.h>
 #include <assert.h>
 #endif
-
+*/
 
 //----------------------------------------------------------------------------------------------------------------
 /// Sorting the void* array with personal comparator given
