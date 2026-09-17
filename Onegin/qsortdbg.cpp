@@ -61,7 +61,7 @@ int main(){
 
     const size_t sz = 6;
 
-    for (int i = 0; i < sz; i++){
+    for (size_t i = 0; i < sz; i++){
 
         printf("%d ", arr[i]);
     }
@@ -72,6 +72,12 @@ int main(){
     qsort((void *) arr, sizeof(arr), sizeof(arr[0]), (int (*)(void*, void*)) &numcmp);
 
     //printArr(arr, sz);
+
+    for (size_t i = 0; i < sz; i++){
+
+        printf("%d ", arr[i]);
+    }
+    putchar('\n');
 }
 
 
