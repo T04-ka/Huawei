@@ -2,9 +2,7 @@
 #include <assert.h>
 #include <string.h>
 
-#define SZ 3
-
-#define pdbg(A)  printArr((int *) arr, rightbrdr - leftbrdr + 1, leftbrdr, rightbrdr, leftptr, rightptr, *((int*) pivot), A);
+#define pdbg(A)  printArr((const char **) arr, rightbrdr - leftbrdr + 1, leftbrdr, rightbrdr, leftptr, rightptr, *((const char**) pivot), A);
 
 #define RED "\e[31m"
 #define BLUE "\e[34m"
@@ -12,17 +10,29 @@
 #define YELLOW "\e[33m"
 #define DEF "\e[0m"
 
-enum Cmp    {
-    LESS = -1,
-    EQ = 0,
-    MORE = 1
-};
+#include <stdio.h>
+#include <string.h>
 
 
-//----------------------------------------------------------------------------------------------------------------
-Cmp numcmp(void* a, void *b);
+void print(const char* arr[], size_t sz);
 
 int scmp(void *s1, void *s2);
+
+int scmp(void *s1ptr, void *s2ptr){
+
+    printf("strcmp(%s, %s) = %d\n", *(const char **) s1ptr, *(const char **) s2ptr, strcmp(*(const char **) s1ptr, *(const char **) s2ptr));
+    return strcmp(*(const char **) s1ptr, *(const char **) s2ptr);
+}
+
+void print(const char* arr[], size_t sz){
+
+
+    for (int i = 0; i < sz; i++) {
+
+        printf("%s\n", arr[i]);
+    }
+    getchar();
+}
 
 
 //----------------------------------------------------------------------------------------------------------------
@@ -52,38 +62,31 @@ void swap(void* e1ptr, void* e2ptr, size_t size);
 
 
 //----------------------------------------------------------------------------------------------------------------
-void printArr(int *arr, size_t size = 0, size_t lB = 0, size_t rB = 0, size_t l = 0, size_t r = 0, int mid = 0, const char *com = "");
+void printArr(const char **arr, size_t size = 0, size_t lB = 0, size_t rB = 0, size_t l = 0, size_t r = 0, const char* mid = 0, const char *com = "");
 
 
-//----------------------------------------------------------------------------------------------------------------
 int main(){
 
-    int arr[] = {1,4,5,0,9,1};
+    const char * arr[] = {"c",
+                          "a",
+                          "b"
+    };
 
-    const size_t sz = 6;
+    print(arr, sizeof(arr)/sizeof(arr[0]));
 
-    printArr(arr, sz);
+    qsort(arr, sizeof(arr[0]), sizeof(arr), scmp);
 
-    qsort((void *) arr, sizeof(arr[0]), sizeof(arr), (int (*)(void*, void*)) &numcmp);
-
-    printArr(arr, sz);
-
-}
-
-
-int scmp(void *s1, void *s2){
-
-    return strcmp((const char *) s1, (const char *) s2);
+    print(arr, sizeof(arr)/sizeof(arr[0]));
 }
 
 
 //----------------------------------------------------------------------------------------------------------------
-void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, int mid, const char *com){
+void printArr(const char **arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, const char* mid, const char *com){
 
-    printf("%sMID = %d\n", com, mid);
+    printf("%sMID = %s\n", com, mid);
 
     printf("LB%lu | L%lu | ", lB, l);
-  
+
     for (size_t i = 0; i < size; i++){
 
         if (i == l && i != r) {
@@ -104,27 +107,15 @@ void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, i
             printf(YELLOW);
         }
 
-        printf("%d  ", arr[i]);
+        printf("%s  ", arr[i]);
 
         printf(DEF);
     }
     printf("| R%lu | RB%lu", r, rB);
     putchar('\n');
- 
+
     getchar();
-    
-}
 
-
-//----------------------------------------------------------------------------------------------------------------
-Cmp numcmp(void* a, void *b){
-
-    int va = *((int *) a);
-    int vb = *((int *) b);
-
-    if (va > vb)  return LESS;
-    if (va < vb)  return MORE;
-    return EQ;
 }
 
 
@@ -163,40 +154,40 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
 
             pdbg("DEDLOH\n");
 
-            //pdbg("Start qsort\n");
+            pdbg("Start qsort\n");
 
             while (leftptr < rightptr){
 
-                //pdbg("Begin of cicl\n");
-                
+                pdbg("Begin of cicl\n");
+
                 assert(rightptr >= leftbrdr);
                 assert(leftptr <= rightbrdr);
                 assert(rightptr <= rightbrdr);
                 assert(leftptr >= leftbrdr);
-                
 
-                //printf("Strcmp = %d\n",(*cmp)(arr[leftptr], midval));
+
+                //printf("Strcmp = %d\n",(*cmp)(arr[leftptr], ));
 
                 if ((*cmp)((void*) ((char*) arr + elemsize * leftptr), pivot) >= 0) {
 
                     while (rightptr > leftptr && (*cmp)((void*) ((char*) arr + elemsize * rightptr), pivot) > 0)
                     {
                         --rightptr;
-                        
+
                         assert(rightptr >= leftbrdr);
                         assert(leftptr <= rightbrdr);
                         assert(rightptr <= rightbrdr);
                         assert(leftptr >= leftbrdr);
-                        
-                        //pdbg("Rfind cicl\n");
+
+                        pdbg("Rfind cicl\n");
                     }
 
-                    //pdbg("BEFORESWAP\n");
+                    pdbg("BEFORESWAP\n");
 
                     //printf("RPTR = %lu\n", rightptr);
                     swap((void*) ((char*) arr + elemsize * leftptr), (void*) ((char*) arr + elemsize * rightptr), elemsize);
 
-                    //pdbg("AFTERSWAP\n");
+                    pdbg("AFTERSWAP\n");
 
                 }
 
@@ -204,7 +195,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
                 leftptr++;
             }
 
-            //pdbg("After cicl\n");
+            pdbg("After cicl\n");
             //printf(GREEN);
             qsort(arr, elemsize, elemsize * (leftptr - leftbrdr), cmp);
             //printf(RED);
@@ -217,7 +208,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
 //----------------------------------------------------------------------------------------------------------------
 void swap(void* e1ptr, void* e2ptr, size_t size){
 //void swap(void **i, void **j){
-    
+
     for (size_t i = 0; i < size; i++){
 
         char tmpbyte = *((char *) e1ptr + i);
@@ -227,4 +218,3 @@ void swap(void* e1ptr, void* e2ptr, size_t size){
         *((char *) e2ptr + i) = tmpbyte;
     }
 }
-

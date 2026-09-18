@@ -11,7 +11,10 @@ int main(){
 
     const char * arr[] = {"c",
                           "a",
-                          "b"
+                          "b",
+                          "d",
+                          "e",
+                      "y"
     };
 
     printArr(arr, sizeof(arr)/sizeof(arr[0]));

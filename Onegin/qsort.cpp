@@ -1,13 +1,4 @@
 #include <stdio.h>
-#include <assert.h>
-#include <string.h>
-
-enum Cmp    {
-    LESS = -1,
-    EQ = 0,
-    MORE = 1
-};
-
 
 
 //----------------------------------------------------------------------------------------------------------------
@@ -21,6 +12,8 @@ enum Cmp    {
 /// @note Comparator must return 0 if elements are equal,
 ///                              positive int if first elem > second elem,
 ///                              negative int if first elem < second elem.
+///
+/// @note DO NOT USE FOR 3 ELEMENTS
 //----------------------------------------------------------------------------------------------------------------
 void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void *b));
 
