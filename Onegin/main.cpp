@@ -3,43 +3,36 @@
 
 #include "qsort.cpp"
 
-void printArr(void* arr[], size_t sz);
+void printArr(const char* arr[], size_t sz);
 
 int scmp(void *s1, void *s2);
 
 int main(){
 
-    const char * strArr[] = {"abc",
-                             "aasdd",
-                             "adsda"
+    const char * arr[] = {"c",
+                          "a",
+                          "b"
     };
 
-    void* arr[] = { (void*)  strArr,
-                    (void*) (strArr + 1),
-                    (void*) (strArr + 2),
-    };
+    printArr(arr, sizeof(arr)/sizeof(arr[0]));
 
-    const size_t sz = 3;
+    qsort(arr, sizeof(arr[0]), sizeof(arr), scmp);
 
-    printArr(arr, sz);
-
-    qsort(arr, 0, sz - 1, scmp);
-
-    printArr(arr, sz);
-
+    printArr(arr, sizeof(arr)/sizeof(arr[0]));
 }
 
-int scmp(void *s1, void *s2){
+int scmp(void *s1ptr, void *s2ptr){
 
-    return strcmp((const char *) s1, (const char *) s2);
+    printf("strcmp(%s, %s) = %d\n", *(const char **) s1ptr, *(const char **) s2ptr, strcmp(*(const char **) s1ptr, *(const char **) s2ptr));
+    return strcmp(*(const char **) s1ptr, *(const char **) s2ptr);
 }
 
-void printArr(void* arr[], size_t sz){
+void printArr(const char* arr[], size_t sz){
 
 
     for (int i = 0; i < sz; i++) {
 
-        printf("%s\n", *((const char**) arr[i]));
+        printf("%s\n", arr[i]);
     }
     getchar();
 }

@@ -29,8 +29,8 @@ int scmp(void *s1, void *s2);
 /// Sorting the void* array with personal comparator given
 ///
 /// @param[in] arr[]     Array with data
-/// @param[in] leftbrdr  Left border of array part to sort
-/// @param[in] rightbrdr Right border of array part to sort
+/// @param[in] elemsize  Size of one array element in bytes
+/// @param[in] arrsize   Size of array in bytes
 /// @param[in] cmp       Personal comparator
 ///
 /// @note Comparator must return 0 if elements are equal,
@@ -45,6 +45,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void 
 ///
 /// @param[in] i    Pointer to first element
 /// @param[in] j    Pointer to second element
+/// @param[in] size Size of elements to swap
 ///
 //----------------------------------------------------------------------------------------------------------------
 void swap(void* e1ptr, void* e2ptr, size_t size);
@@ -81,7 +82,7 @@ void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, i
 
     printf("%sMID = %d\n", com, mid);
 
-    printf("%lu | %lu | ", lB, l);
+    printf("LB%lu | L%lu | ", lB, l);
   
     for (size_t i = 0; i < size; i++){
 
@@ -107,7 +108,7 @@ void printArr(int *arr, size_t size, size_t lB, size_t rB, size_t l, size_t r, i
 
         printf(DEF);
     }
-    printf("| %lu | %lu", r, rB);
+    printf("| R%lu | RB%lu", r, rB);
     putchar('\n');
  
     getchar();
@@ -121,8 +122,8 @@ Cmp numcmp(void* a, void *b){
     int va = *((int *) a);
     int vb = *((int *) b);
 
-    if (va > vb)  return MORE;
-    if (va < vb)  return LESS;
+    if (va > vb)  return LESS;
+    if (va < vb)  return MORE;
     return EQ;
 }
 
@@ -141,28 +142,26 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
 
             if (leftbrdr >= rightbrdr || arrsize <= 0){
 
-                printf(RED"RETURNED leftbrdr = %lu | rightbrdr = %lu\n"DEF, leftbrdr, rightbrdr);
+                //printf(RED"RETURNED leftbrdr = %lu | rightbrdr = %lu\n"DEF, leftbrdr, rightbrdr);
                 return;
             }
             size_t leftptr = leftbrdr;
             size_t rightptr = rightbrdr;
 
-
-
-            printf("(leftbrdr + rightbrdr)/2 = %lu\n",(leftbrdr + rightbrdr)/2);
+            printf("(leftbrdr + rightbrdr)/2 = %zu\n",(leftbrdr + rightbrdr)/2);
 
             size_t adress = elemsize * ((leftbrdr + rightbrdr)/2);
 
-            printf("adress = %lu\n", adress);
+            printf("adress = %zu\n", adress);
 
             void* pivot = (void*) ((char*) arr + adress);
 
-            printf("arrsize = %lu | elemsize = %lu | leftbrdr = %lu | rightbrdr = %lu\n", arrsize, elemsize, leftbrdr,
+            printf("arrsize = %zu | elemsize = %zu | leftbrdr = %zu | rightbrdr = %zu\n", arrsize, elemsize, leftbrdr,
             rightbrdr);
 
             printf("Arr = %p | PIVOT = %p\n", arr, pivot);
 
-            pdbg("");
+            pdbg("DEDLOH\n");
 
             //pdbg("Start qsort\n");
 
