@@ -67,9 +67,11 @@ void printArr(const char **arr, size_t size = 0, size_t lB = 0, size_t rB = 0, s
 
 int main(){
 
-    const char * arr[] = {"c",
+    const char * arr[] = {"f",
+                          "c",
                           "a",
-                          "b"
+                          "b",
+                          "e"
     };
 
     print(arr, sizeof(arr)/sizeof(arr[0]));
