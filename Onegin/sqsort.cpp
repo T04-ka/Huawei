@@ -1,8 +1,17 @@
 #include "sqsort.h"
 
-
+//-------------------------------------------------------------------------------------
+/// Swaps two elements of the array.
+///
+/// @param elm1ptr Void* pointer to the first element.
+/// @param elm2ptr Void* pointer to the second element.
+/// @param size Size of the elements.
+///
+//-------------------------------------------------------------------------------------
 void swap(void *elm1ptr, void *elm2ptr, size_t size);
 
+
+//-------------------------------------------------------------------------------------
 void sqsort(void *arr, size_t arrsize, size_t elemsize, int (*cmp)(void *, void *)){
 
     size_t len = arrsize/elemsize;
@@ -21,6 +30,8 @@ void sqsort(void *arr, size_t arrsize, size_t elemsize, int (*cmp)(void *, void 
     }
 }
 
+
+//-------------------------------------------------------------------------------------
 void swap(void *elm1ptr, void *elm2ptr, size_t size){
 
     for (size_t i = 0; i < size; i++){
@@ -32,3 +43,6 @@ void swap(void *elm1ptr, void *elm2ptr, size_t size){
             *((char *) elm2ptr + i) = tmpbyte;
         }
 }
+
+
+//-------------------------------------------------------------------------------------

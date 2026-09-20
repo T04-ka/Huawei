@@ -2,6 +2,7 @@
 //#include "sqsort.h"
 #include "io.h"
 #include "structs.h"
+#include "sqsort.h"
 
 #include <string.h>
 
@@ -18,6 +19,10 @@ int main(){
     filedata fldt = {.flnm = flnm};
 
     rdfrmfl(&fldt);
+
+    printArr(fldt.prsdbffr, fldt.nlns);
+
+    sqsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), scmp);
 
     printArr(fldt.prsdbffr, fldt.nlns);
 
