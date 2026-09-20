@@ -11,7 +11,7 @@
 void printArr(const char* arr[], int nlines){
 
 
-    printf("nlines = %d\n", nlines);
+    //printf("nlines = %d\n", nlines);
     for (int i = 0; i < nlines; i++){
 
         printf("|%s|\n", arr[i]);
@@ -19,8 +19,9 @@ void printArr(const char* arr[], int nlines){
 
     getchar();
 }
-
-
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//TODO: сделать readfilesize (28-32)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //-------------------------------------------------------------------------------------
 void rdfrmfl(struct filedata* fldt){
 
@@ -28,18 +29,17 @@ void rdfrmfl(struct filedata* fldt){
     struct stat statdata = {};
     stat(fldt -> flnm, &statdata);
 
-    fldt -> sz = (size_t) statdata.st_blksize;
+    fldt -> sz = (size_t) statdata.st_size;
     fldt -> rdbffr = (char*) calloc(fldt -> sz + 1, 1);
 
     FILE* file = fopen(fldt -> flnm, "r");
     fread(fldt -> rdbffr, sizeof(char), fldt -> sz, file);
     fclose(file);
 
-
+    //TODO: сделать тдельную функцию для парсера
     //parse
-    // void parsedata(struct filedata* filedata);
+    //void parsedata(struct filedata* filedata);
     char* rbuf = fldt -> rdbffr;
-
 
     fldt -> nlns = chrncnt(rbuf, '\n', fldt -> sz);
 
