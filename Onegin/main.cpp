@@ -32,15 +32,15 @@ int main(){
 
     */
 
-    char* rdfrmfl(const char* flnm);
+    char** rdfrmfl(const char* flnm, char* data);
 
     const char * flnm = "inp.txt";
 
-    char* data = rdfrmfl(flnm);
+    char* readdata = NULL;
+    char** parseddata = rdfrmfl(flnm, readdata);
 
-    printf("|%s|", data);
-
-    free(data);
+    free(readdata);
+    free(parseddata);
 }
 
 int scmp(void *s1ptr, void *s2ptr){
@@ -52,61 +52,70 @@ int scmp(void *s1ptr, void *s2ptr){
 #include <sys/stat.h>
 
 
-char* rdfrmfl(const char* flnm){
+char** rdfrmfl(const char* flnm, char* databffr){
 
     FILE* file = fopen(flnm, "r");
 
     struct stat fldata = {};
     stat(flnm, &fldata);
 
-    size_t size = fldata.st_blksize;
-    void *databffr = calloc(size + 1, 1);
+    size_t size = (size_t) fldata.st_blksize;
+    databffr = (char*) calloc(size + 1, 1);
 
     fread(databffr, sizeof(char), size, file);
 
-    int parsedata(char* data, size_t size);
-    int ncnt = parsedata((char*) databffr, size);
-    printf("Nlines + 1 = %d\n", ncnt);
-    return (char*) databffr;
+    char** parsedata(char* data, size_t size, size_t* linescnt);
 
+    size_t linescnt = 0;
+
+    char** prsdbffr = parsedata((char*) databffr, size, &linescnt);
+
+
+    printf("n = %zu\n", linescnt);
+    for (size_t i = 0; i < linescnt; i++){
+
+        printf("|%s|\n", prsdbffr[i]);
+    }
+
+    return prsdbffr;
 }
 
-#define tovoid (void*)
-#define tochar  (char*)
 
-int parsedata(char data[], size_t size){
+char** parsedata(char data[], size_t size, size_t* cnt){
 
-    int cnt = 0;
+    *cnt = 0;
+
     for (size_t i = 0; i < size; i++){
 
         if (data[i] == '\n'){
 
-            cnt++;
+            (*cnt)++;
         }
     }
 
-    /*
-    void* prsdbffr = tovoid calloc(cnt, sizeof(void*));
 
-    void* prevptr = tovoid data;
+    char** prsdbffr = (char**) calloc(*cnt, sizeof(char*));
+    char** prsdbffrptr = prsdbffr;
+
+    char* prevptr = data;
 
     for (size_t i = 0; i < size; i++){
 
         if (data[i] == '\n'){
 
             data[i] = '\0';
-            cnt++;
+            *(prsdbffrptr++) = prevptr;
+            prevptr = data + i + 1;
         }
     }
-    */
 
-    return cnt;
+    return prsdbffr;
 }
 
 void printArr(const char* arr[], size_t sz){
 
 
-    for (int i = 0; i < sz; i++) {
+    for (size_t i = 0; i < sz; i++) {
 
         printf("%s ", arr[i]);
     }
