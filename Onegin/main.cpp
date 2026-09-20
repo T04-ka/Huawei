@@ -53,14 +53,56 @@ int scmp(void *s1ptr, void *s2ptr){
 
 
 char* rdfrmfl(const char* flnm){
+
     FILE* file = fopen(flnm, "r");
+
     struct stat fldata = {};
     stat(flnm, &fldata);
-    void *databffr = calloc(fldata.st_blksize + 1, 1);
-    fread(databffr, sizeof(char), fldata.st_blksize, file);
+
+    size_t size = fldata.st_blksize;
+    void *databffr = calloc(size + 1, 1);
+
+    fread(databffr, sizeof(char), size, file);
+
+    int parsedata(char* data, size_t size);
+    int ncnt = parsedata((char*) databffr, size);
+    printf("Nlines + 1 = %d\n", ncnt);
     return (char*) databffr;
 
 }
+
+#define tovoid (void*)
+#define tochar  (char*)
+
+int parsedata(char data[], size_t size){
+
+    int cnt = 0;
+    for (size_t i = 0; i < size; i++){
+
+        if (data[i] == '\n'){
+
+            cnt++;
+        }
+    }
+
+    /*
+    void* prsdbffr = tovoid calloc(cnt, sizeof(void*));
+
+    void* prevptr = tovoid data;
+
+    for (size_t i = 0; i < size; i++){
+
+        if (data[i] == '\n'){
+
+            data[i] = '\0';
+            cnt++;
+        }
+    }
+    */
+
+    return cnt;
+}
+
 void printArr(const char* arr[], size_t sz){
 
 
