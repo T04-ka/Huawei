@@ -1,11 +1,20 @@
 #include "sqsort.h"
 
+#include <cstdio>
+#include <iterator>
 #include <string.h>
 
 #include <stdlib.h>
 
-void printArr(const char* arr[], size_t sz);
+struct filedata {
+    const char* flnm;
+    size_t sz;
+    int nlns;
+    char *rdbffr;
+    const char* *prsdbffr;
+};
 
+void printArr(const char* arr[], int nlines);
 int scmp(void *s1, void *s2);
 
 int main(){
@@ -32,15 +41,19 @@ int main(){
 
     */
 
-    char** rdfrmfl(const char* flnm, char* data);
+    void rdfrmfl(struct filedata* filedata);
 
     const char * flnm = "inp.txt";
 
-    char* readdata = NULL;
-    char** parseddata = rdfrmfl(flnm, readdata);
+    filedata fldt = {.flnm = flnm};
 
-    free(readdata);
-    free(parseddata);
+    rdfrmfl(&fldt);
+
+    printArr(fldt.prsdbffr, fldt.nlns);
+
+
+    free(fldt.rdbffr);
+    free(fldt.prsdbffr);
 }
 
 int scmp(void *s1ptr, void *s2ptr){
@@ -52,73 +65,73 @@ int scmp(void *s1ptr, void *s2ptr){
 #include <sys/stat.h>
 
 
-char** rdfrmfl(const char* flnm, char* databffr){
+void rdfrmfl(struct filedata* fldt){
 
-    FILE* file = fopen(flnm, "r");
+    struct stat statdata = {};
+    stat(fldt -> flnm, &statdata);
 
-    struct stat fldata = {};
-    stat(flnm, &fldata);
+    fldt -> sz = (size_t) statdata.st_blksize;
+    fldt -> rdbffr = (char*) calloc(fldt -> sz + 1, 1);
 
-    size_t size = (size_t) fldata.st_blksize;
-    databffr = (char*) calloc(size + 1, 1);
+    FILE* file = fopen(fldt -> flnm, "r");
+    fread(fldt -> rdbffr, sizeof(char), fldt -> sz, file);
+    fclose(file);
 
-    fread(databffr, sizeof(char), size, file);
+    void parsedata(struct filedata* filedata);
 
-    char** parsedata(char* data, size_t size, size_t* linescnt);
-
-    size_t linescnt = 0;
-
-    char** prsdbffr = parsedata((char*) databffr, size, &linescnt);
-
-
-    printf("n = %zu\n", linescnt);
-    for (size_t i = 0; i < linescnt; i++){
-
-        printf("|%s|\n", prsdbffr[i]);
-    }
-
-    return prsdbffr;
+    parsedata(fldt);
 }
 
 
-char** parsedata(char data[], size_t size, size_t* cnt){
+void parsedata(struct filedata* fldt){
 
-    *cnt = 0;
+    char* rbuf = fldt -> rdbffr;
 
-    for (size_t i = 0; i < size; i++){
+    int chrncnt(char* line, char smpl, size_t size);
 
-        if (data[i] == '\n'){
+    fldt -> nlns = chrncnt(rbuf, '\n', fldt -> sz);
 
-            (*cnt)++;
-        }
-    }
+    const char* *prsdbffr = (const char**) calloc((size_t) fldt -> nlns, sizeof(char*));
+    const char* *prsdbffrptr = prsdbffr;
 
+    char* prevptr = rbuf;
 
-    char** prsdbffr = (char**) calloc(*cnt, sizeof(char*));
-    char** prsdbffrptr = prsdbffr;
+    for (size_t i = 0; i < fldt -> sz; i++){
 
-    char* prevptr = data;
+        if (rbuf[i] == '\n'){
 
-    for (size_t i = 0; i < size; i++){
-
-        if (data[i] == '\n'){
-
-            data[i] = '\0';
+            rbuf[i] = '\0';
             *(prsdbffrptr++) = prevptr;
-            prevptr = data + i + 1;
+            prevptr = rbuf + i + 1;
         }
     }
 
-    return prsdbffr;
+    fldt -> prsdbffr = prsdbffr;
 }
 
-void printArr(const char* arr[], size_t sz){
+int chrncnt(char* buf, char smpl, size_t size){
 
+    int cnt = 0;
 
-    for (size_t i = 0; i < sz; i++) {
+    for (size_t i = 0; i < size; i++){
 
-        printf("%s ", arr[i]);
+        if (buf[i] == smpl){
+
+            cnt++;
+        }
     }
-    putchar('\n');
+
+    return cnt;
+}
+
+void printArr(const char* arr[], int nlines){
+
+
+    printf("nlines = %d\n", nlines);
+    for (int i = 0; i < nlines; i++){
+
+        printf("|%s|\n", arr[i]);
+    }
+
     getchar();
 }
