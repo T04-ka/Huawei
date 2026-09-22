@@ -127,7 +127,6 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
             assert(arr != NULL);
 
 
-
             size_t leftbrdr = 0;/////////////////////////////////////////////////////////////////////////
             size_t rightbrdr = arrsize/elemsize - 1;/////////////////////////////////////////////////////////////////////////
 
@@ -135,7 +134,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
 
             if (leftbrdr >= rightbrdr || arrsize <= 0){/////////////////////////////////////////////////////////////////////////
 
-                //printf(RED"RETURNED leftbrdr = %lu | rightbrdr = %lu\n"DEF, leftbrdr, rightbrdr);
+                printf(RED"RETURNED leftbrdr = %lu | rightbrdr = %lu\n"DEF, leftbrdr, rightbrdr);
                 return;/////////////////////////////////////////////////////////////////////////
             }
             size_t leftptr = leftbrdr;/////////////////////////////////////////////////////////////////////////
@@ -174,6 +173,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
 
                     while (rightptr > leftptr && (*cmp)((void*) ((char*) arr + elemsize * rightptr), pivot) > 0)/////////////////////////////////////////////////////////////////////////
                     {
+                        pdbg("Rfind cicl\n");
                         --rightptr;/////////////////////////////////////////////////////////////////////////
 
                         assert(rightptr >= leftbrdr);
@@ -181,7 +181,7 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
                         assert(rightptr <= rightbrdr);
                         assert(leftptr >= leftbrdr);
 
-                        pdbg("Rfind cicl\n");
+
                     }
 
                     pdbg("BEFORESWAP\n");
@@ -199,10 +199,10 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
 
             pdbg("After cicl\n");
             //printf(GREEN);
-            qsort(arr, elemsize, elemsize * (leftptr - leftbrdr), cmp);/////////////////////////////////////////////////////////////////////////
+            qsort(arr, elemsize, elemsize * (leftptr - leftbrdr - 1), cmp);/////////////////////////////////////////////////////////////////////////
             //printf(RED);
             //printf("BEFORE QSORT CALL:");
-            qsort((void*) ((char*) arr + elemsize * (rightptr + 1)), elemsize, elemsize * (rightbrdr - rightptr), cmp);/////////////////////////////////////////////////////////////////////////
+            qsort((void*) ((char*) arr + elemsize * (rightptr - 1)), elemsize, elemsize * (rightbrdr - rightptr + 2), cmp);/////////////////////////////////////////////////////////////////////////
 }
 
 

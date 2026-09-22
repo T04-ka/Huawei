@@ -13,7 +13,7 @@
 
 int main(){
 
-    const char * flnm = "inp.txt";
+    const char * flnm = "ASPushkinEvgeniyOnegin.txt";
 
     filedata fldt = {.flnm = flnm};
 
