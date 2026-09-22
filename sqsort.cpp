@@ -18,21 +18,21 @@ void sqsort(void *arr, size_t arrsize, size_t elemsize, int (*cmp)(const void *,
 
     for (size_t i = 0; i < len; i++){
 
-        void* ivl = (void *) ((char*) arr + elemsize * i);
+        void* ivl = (void *) ((char *) arr + elemsize * i);
         void* min = ivl;
 
 
         for (size_t j = i; j < len; j++){
 
-            void *jvl = (void *) ((char*) arr + elemsize * j);
+            void *jvl = (void *) ((char *) arr + elemsize * j);
 
-            if (cmp((const void*) ivl, (const void*) jvl) > 0){
+            if (cmp((const void *) min, (const void *) jvl) > 0){
 
                 min = jvl;
             }
         }
-
-        swap(ivl, min, elemsize);
+        if (min != ivl)
+            swap(ivl, min, elemsize);
     }
 }
 

@@ -116,10 +116,10 @@ int scmpfrmstrendtostrstrt(const void *s1ptr, const void *s2ptr){
 //-------------------------------------------------------------------------------------
 int ptrcmp(const void* n1ptr, const void* n2ptr) {
 
-    const char* n1 = *(const char *const *) n1ptr;
-    const char* n2 = *(const char *const *) n2ptr;
+     char* n1 = *(char* const *) n1ptr;
+     char* n2 = *(char* const *) n2ptr;
 
-    return (int) (n1 - n2);
+     return (int) (n1 - n2);
 }
 
 
