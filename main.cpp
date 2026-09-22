@@ -32,4 +32,4 @@ int main(){
     free(fldt.prsdbffr);
 }
 
-#endef sortprint
+#undef sortprint

@@ -1,7 +1,5 @@
 #include "io.h"
 
-#include <sys/stat.h>
-
 #include "strfuncs.h"
 #include "structs.h"
 
@@ -22,14 +20,13 @@ void printArr(const char* arr[], int nlines){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //TODO: сделать readfilesize (28-32)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 //-------------------------------------------------------------------------------------
 void rdfrmfl(struct filedata* fldt){
 
     //read
-    struct stat statdata = {};
-    stat(fldt -> flnm, &statdata);
-
-    fldt -> sz = (size_t) statdata.st_size;
+    fldt -> sz = rdflsz(fldt -> flnm);
     fldt -> rdbffr = (char*) calloc(fldt -> sz + 1, 1);
 
     FILE* file = fopen(fldt -> flnm, "r");

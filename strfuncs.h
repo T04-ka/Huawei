@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-
+//-------------------------------------------------------------------------------------
 /// Counts the number of occurrences of a character in a buffer.
 ///
 /// @param[in] buf The buffer to search.
@@ -15,6 +15,17 @@
 //-------------------------------------------------------------------------------------
 int chrncnt(char* line, char smpl, size_t size);
 
+
+
+//-------------------------------------------------------------------------------------
+/// Returns the size of the file in bytes
+///
+/// @param flnm Path to the fil
+///
+/// @return Size of the file in bytes
+///
+//-------------------------------------------------------------------------------------
+size_t rdflsz(const char* flnm);
 
 
 #endif

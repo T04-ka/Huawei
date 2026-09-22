@@ -1,5 +1,7 @@
 #include "strfuncs.h"
 
+#include <sys/stat.h>
+
 
 //-------------------------------------------------------------------------------------
 int chrncnt(char* buf, char smpl, size_t size){
@@ -15,6 +17,15 @@ int chrncnt(char* buf, char smpl, size_t size){
     }
 
     return cnt;
+}
+
+
+//-------------------------------------------------------------------------------------
+size_t rdflsz(const char* flnm){
+
+    struct stat statdata = {};
+    stat(flnm, &statdata);
+    return (size_t) statdata.st_size;
 }
 
 
