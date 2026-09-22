@@ -1,6 +1,8 @@
 #include "strfuncs.h"
 
+#include "structs.h"
 #include <sys/stat.h>
+#include <stdlib.h>
 
 
 //-------------------------------------------------------------------------------------
@@ -30,3 +32,27 @@ size_t rdflsz(const char* flnm){
 
 
 //-------------------------------------------------------------------------------------
+void prsdata(struct filedata* fldt){
+
+    char* rbuf = fldt -> rdbffr;
+
+    fldt -> nlns = chrncnt(rbuf, '\n', fldt -> sz);
+
+    const char* *prsdbffr = (const char**) calloc((size_t) fldt -> nlns, sizeof(char*));
+    const char* *prsdbffrptr = prsdbffr;
+
+    const char* prevptr = rbuf;
+
+    for (size_t i = 0; i < fldt -> sz; i++){
+
+        if (rbuf[i] == '\n'){
+
+            rbuf[i] = '\0';
+            *(prsdbffrptr++) = prevptr;
+            prevptr = rbuf + i + 1;
+            //prevptr = *prsdbffrptr;
+        }
+    }
+
+    fldt -> prsdbffr = prsdbffr;
+}
