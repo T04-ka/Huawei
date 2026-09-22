@@ -11,6 +11,7 @@
                         printf("\n" A ":\n");                                                                              \
                         printArr(fldt.prsdbffr, fldt.nlns);
 //TODO: замнить массив строк на массив структур со строкой и диной строки.
+#include <assert.h>
 int main(){
 
     const char * flnm = "inp.txt";
@@ -32,6 +33,8 @@ int main(){
     printf("Second cmp Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 
+    assert(fldt.prsdbffr != 0);
+    assert(ptrcmp != 0);
     sqsort(fldt.prsdbffr, sizeof(size_t) * (size_t) fldt.nlns, sizeof(size_t), &ptrcmp);
     printf("\nAgain default Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
