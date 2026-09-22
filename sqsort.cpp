@@ -12,21 +12,27 @@ void swap(void *elm1ptr, void *elm2ptr, size_t size);
 
 
 //-------------------------------------------------------------------------------------
-void sqsort(void *arr, size_t arrsize, size_t elemsize, int (*cmp)(void *, void *)){
+void sqsort(void *arr, size_t arrsize, size_t elemsize, int (*cmp)(const void *, const void *)){
 
     size_t len = arrsize/elemsize;
 
     for (size_t i = 0; i < len; i++){
+
+        void* ivl = (void *) ((char*) arr + elemsize * i);
+        void* min = ivl;
+
+
         for (size_t j = i; j < len; j++){
 
-            void *ivl = (void *) ((char*) arr + elemsize * i);
             void *jvl = (void *) ((char*) arr + elemsize * j);
 
-            if (cmp(ivl, jvl) > 0){
+            if (cmp((const void*) ivl, (const void*) jvl) > 0){
 
-                swap(ivl, jvl, elemsize);
+                min = jvl;
             }
         }
+
+        swap(ivl, min, elemsize);
     }
 }
 

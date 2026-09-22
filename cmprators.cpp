@@ -1,5 +1,7 @@
 #include "cmprators.h"
 
+#include "structs.h"
+
 #include <string.h>
 #include <ctype.h>
 
@@ -13,8 +15,8 @@
 //-------------------------------------------------------------------------------------
 int strcmpfrmstrstrttostrend(const void *s1ptr, const void *s2ptr){
 
-    const char *s1 = *(const char * const*) s1ptr;
-    const char *s2 = *(const char * const*) s2ptr;
+    const char *s1 = (*(const string *) s1ptr).str;
+    const char *s2 = (*(const string *) s2ptr).str;
 
 
     int diff = 0;
@@ -53,18 +55,20 @@ int strcmpfrmstrstrttostrend(const void *s1ptr, const void *s2ptr){
 
     diff = tolower(*s1) - tolower(*s2);
 
+
+    printf("cpm(%s, %s) = %d\n", s1, s2, diff);
     return diff;
 }
 
 
 //-------------------------------------------------------------------------------------
-int scmpfrmstrendtostrstrt(void *s1ptr, void *s2ptr){
+int scmpfrmstrendtostrstrt(const void *s1ptr, const void *s2ptr){
 
-    const char *s1 = *(const char **) s1ptr;
-    const char *s2 = *(const char **) s2ptr;
+    const char *s1 = (*(const string *) s1ptr).str;
+    const char *s2 = (*(const string *) s2ptr).str;
 
-    size_t s1ln = strlen(s1);
-    size_t s2ln = strlen(s2);
+    size_t s1ln = (*(const string *) s1ptr).len;
+    size_t s2ln = (*(const string *) s2ptr).len;
 
     int d = 0;
 
@@ -110,10 +114,10 @@ int scmpfrmstrendtostrstrt(void *s1ptr, void *s2ptr){
 
 
 //-------------------------------------------------------------------------------------
-int ptrcmp(void* n1ptr, void* n2ptr) {
+int ptrcmp(const void* n1ptr, const void* n2ptr) {
 
-    const char* n1 = *(const char**) n1ptr;
-    const char* n2 = *(const char**) n2ptr;
+    const char* n1 = *(const char *const *) n1ptr;
+    const char* n2 = *(const char *const *) n2ptr;
 
     return (int) (n1 - n2);
 }

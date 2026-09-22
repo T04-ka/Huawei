@@ -24,11 +24,13 @@ int main(){
 
     //sortprint("First cmp Onegin", strcmpfrsmstrstrttostrend);
 
-    qsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), strcmpfrmstrstrttostrend);
+    qsort(fldt.prsdbffr, (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), strcmpfrmstrstrttostrend);
     printf("First cmp Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 
-    sortprint("Second cmp Onegin", scmpfrmstrendtostrstrt);
+    sqsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), scmpfrmstrendtostrstrt);
+    printf("Second cmp Onegin:\n");
+    printArr(fldt.prsdbffr, fldt.nlns);
 
     sqsort(fldt.prsdbffr, sizeof(size_t) * (size_t) fldt.nlns, sizeof(size_t), &ptrcmp);
     printf("\nAgain default Onegin:\n");

@@ -38,8 +38,8 @@ void prsdata(struct filedata* fldt){
 
     fldt -> nlns = chrncnt(rbuf, '\n', fldt -> sz);
 
-    const char* *prsdbffr = (const char**) calloc((size_t) fldt -> nlns, sizeof(char*));
-    const char* *prsdbffrptr = prsdbffr;
+    string *prsdbffr = (string*) calloc((size_t) fldt -> nlns, sizeof(struct string));
+    string *prsdbffrptr = prsdbffr;
 
     const char* prevptr = rbuf;
 
@@ -48,8 +48,10 @@ void prsdata(struct filedata* fldt){
         if (rbuf[i] == '\n'){
 
             rbuf[i] = '\0';
-            *(prsdbffrptr++) = prevptr;
+            prsdbffrptr -> str = prevptr;
+            prsdbffrptr -> len = (size_t) (rbuf + i + 1 - prevptr);
             prevptr = rbuf + i + 1;
+            prsdbffrptr++;
             //prevptr = *prsdbffrptr;
         }
     }

@@ -32,7 +32,7 @@ int strcmpfrmstrstrttostrend(const void *s1, const void *s2);
 ///
 /// @note Skipes non-alphanumeric characters.
 ///
-int scmpfrmstrendtostrstrt(void *s1, void *s2);
+int scmpfrmstrendtostrstrt(const void *s1, const void *s2);
 
 
 
@@ -46,7 +46,7 @@ int scmpfrmstrendtostrstrt(void *s1, void *s2);
 ///         respectively, to be less than, to match, or be greater than the second pointer.
 ///
 //-------------------------------------------------------------------------------------
-int ptrcmp(void *n1, void *n2);
+int ptrcmp(const void *n1, const void *n2);
 
 
 

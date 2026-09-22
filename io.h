@@ -1,6 +1,8 @@
 #ifndef IO_H
 #define IO_H
 
+#include "structs.h"
+
 #include <stdlib.h>
 
 //-------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@
 /// @param[in] nlines The number of lines in the array.
 ///
 //-------------------------------------------------------------------------------------
-void printArr(const char* arr[], int nlines);
+void printArr(string arr[], int nlines);
 
 
 

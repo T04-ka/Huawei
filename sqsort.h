@@ -16,6 +16,6 @@
 ///                              positive int if first elem > second elem,
 ///                              negative int if first elem < second elem.
 //-------------------------------------------------------------------------------------
-void sqsort(void *arr, size_t arrsize, size_t elemsize, int (*cmp)(void *, void *));
+void sqsort(void *arr, size_t arrsize, size_t elemsize, int (*cmp)(const void *, const void *));
 
 #endif

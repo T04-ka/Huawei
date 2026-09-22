@@ -1,18 +1,17 @@
 #include "io.h"
 
 #include "strfuncs.h"
-#include "structs.h"
 
 
 
 //-------------------------------------------------------------------------------------
-void printArr(const char* arr[], int nlines){
+void printArr(string arr[], int nlines){
 
 
     //printf("nlines = %d\n", nlines);
     for (int i = 0; i < nlines; i++){
 
-        printf("|%s|\n", arr[i]);
+        printf("|%s|\n", arr[i].str);
     }
 
     getchar();
