@@ -15,7 +15,7 @@
 ///
 /// @note DO NOT USE FOR 3 ELEMENTS
 //----------------------------------------------------------------------------------------------------------------
-void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void *b));
+void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void *b));
 
 
 
@@ -32,7 +32,7 @@ void swap(void* e1ptr, void* e2ptr, size_t size);
 
 
 //----------------------------------------------------------------------------------------------------------------
-void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, void *e2ptr)){
+void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, void *e2ptr)){
 
     size_t leftbrdr = 0;
     size_t rightbrdr = arrsize/elemsize - 1;

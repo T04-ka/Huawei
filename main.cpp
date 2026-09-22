@@ -3,6 +3,9 @@
 #include "sqsort.h"
 #include "cmprators.h"
 
+#include <cstdlib>
+#include <stdlib.h>
+
 
 #define sortprint(A, B) sqsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), B); \
                         printf("\n" A ":\n");                                                                              \
@@ -19,9 +22,13 @@ int main(){
     printf("default Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 
-    sortprint("scmpv1 Onegin", strcmpfrmstrstrttostrend);
+    //sortprint("First cmp Onegin", strcmpfrsmstrstrttostrend);
 
-    sortprint("scmpv2 Onegin", scmpfrmstrendtostrstrt);
+    qsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), strcmpfrmstrstrttostrend);
+    printf("First cmp Onegin:\n");
+    printArr(fldt.prsdbffr, fldt.nlns);
+
+    sortprint("Second cmp Onegin", scmpfrmstrendtostrstrt);
 
     sqsort(fldt.prsdbffr, sizeof(size_t) * (size_t) fldt.nlns, sizeof(size_t), &ptrcmp);
     printf("\nAgain default Onegin:\n");

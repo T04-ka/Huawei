@@ -3,12 +3,19 @@
 
 #include <stdio.h>
 
+
+struct string {
+    const char* str;
+    size_t len;
+};
+
+
 struct filedata {
     const char* flnm;
     size_t sz;
     int nlns;
     char *rdbffr;
-    const char* *prsdbffr;
+    string *prsdbffr;
 };
 
 #endif

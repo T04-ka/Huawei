@@ -11,10 +11,10 @@
 // Выйду на холм куль поставлю
 //
 //-------------------------------------------------------------------------------------
-int strcmpfrmstrstrttostrend(void *s1ptr, void *s2ptr){
+int strcmpfrmstrstrttostrend(const void *s1ptr, const void *s2ptr){
 
-    const char *s1 = *(const char **) s1ptr;
-    const char *s2 = *(const char **) s2ptr;
+    const char *s1 = *(const char * const*) s1ptr;
+    const char *s2 = *(const char * const*) s2ptr;
 
 
     int diff = 0;

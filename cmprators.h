@@ -17,7 +17,7 @@
 /// FUCKED UP during the recognition. Thank you in advance. Yours truly, AI.
 ///
 //-------------------------------------------------------------------------------------
-int strcmpfrmstrstrttostrend(void *s1, void *s2);
+int strcmpfrmstrstrttostrend(const void *s1, const void *s2);
 
 
 
