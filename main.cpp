@@ -10,8 +10,8 @@
 
 int main(){
 
-    const char * flnm = "ASPushkinEvgeniyOnegin.txt";
-    //const char* flnm = "inp.txt";
+    //const char * flnm = "ASPushkinEvgeniyOnegin.txt";
+    const char* flnm = "inp.txt";
 
     filedata fldt = {.flnm = flnm};
 

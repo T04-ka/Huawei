@@ -17,19 +17,16 @@ void swap(void* e1ptr, void* e2ptr, size_t size);
 //----------------------------------------------------------------------------------------------------------------
 void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(const void *e1ptr, const void *e2ptr)){
 
-    size_t leftbrdr = 0;
     size_t rightbrdr = arrsize/elemsize - 1;
 
-    if (leftbrdr >= rightbrdr || arrsize <= 0) {
+    if (rightbrdr <= 0 || arrsize <= 0) {
 
         return;
     }
-    size_t leftptr = leftbrdr;
+    size_t leftptr = 0;
     size_t rightptr = rightbrdr;
 
-    size_t adress = elemsize * ((leftbrdr + rightbrdr)/2);
-
-    void* pivot = (void*) ((char*) arr + adress);
+    void* pivot = (void*) ((char*) arr + elemsize * (rightbrdr / 2));
 
     while (leftptr < rightptr) {
 
@@ -59,7 +56,7 @@ void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(const void *
 
     size_t indpivot = (size_t) ((char*) pivot - (char*) arr) / elemsize;
 
-    myqsort(arr, elemsize, elemsize * (indpivot - leftbrdr), cmp);
+    myqsort(arr, elemsize, elemsize * indpivot, cmp);
 
     myqsort((void*) ((char*) arr + (indpivot + 1) * elemsize), elemsize, elemsize * (rightbrdr - indpivot), cmp);
 }
