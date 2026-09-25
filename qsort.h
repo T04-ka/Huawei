@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 //----------------------------------------------------------------------------------------------------------------
-/// Sorting the void* array with personal comparator given
+/// Sorting the void* array using quicksort algorithm
 ///
 /// @param[in] arr[]     Array with data
 /// @param[in] elemsize  Size of one array element in bytes
@@ -15,7 +15,6 @@
 ///                              positive int if first elem > second elem,
 ///                              negative int if first elem < second elem.
 ///
-/// @note DO NOT USE FOR 3 ELEMENTS
 //----------------------------------------------------------------------------------------------------------------
 void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(const void *a, const void *b));
 

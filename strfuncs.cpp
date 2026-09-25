@@ -61,3 +61,18 @@ void prsdata(struct filedata* fldt){
 
 
 //-------------------------------------------------------------------------------------
+#define fldt_ fldt ->
+
+void filedatastrdestr(struct filedata* fldt){
+
+    fldt_ flnm = "DED_LOH";
+    fldt_ sz = -1;
+    fldt_ nlns = -1;
+    free(fldt_ rdbffr);
+    free(fldt_ prsdbffr);
+}
+
+#undef fldt_
+
+
+//-------------------------------------------------------------------------------------

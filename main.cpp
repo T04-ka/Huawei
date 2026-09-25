@@ -1,17 +1,20 @@
 #include "io.h"
+#include "strfuncs.h"
 #include "structs.h"
 #include "qsort.h"
-#include "sqsort.h"
 #include "cmprators.h"
 
 #include <cstdlib>
 #include <stdlib.h>
 
-
+// TODO сделать argc argv c именами файлов
+// carambaswitcher!!
+// TODO: сделать свой вывод буффера через puts со скипом \0
+// TODO: сделать отдельную функцию для free всего с уничтоженем всех данных
 int main(){
 
-    //const char * flnm = "ASPushkinEvgeniyOnegin.txt";
-    const char* flnm = "inp.txt";
+    const char * flnm = "ASPushkinEvgeniyOnegin.txt";
+    //const char* flnm = "inp.txt";
 
     filedata fldt = {.flnm = flnm};
 
@@ -32,7 +35,5 @@ int main(){
     printf("\nAgain default Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 
-
-    free(fldt.rdbffr);
-    free(fldt.prsdbffr);
+    filedatastrdestr(&fldt);
 }

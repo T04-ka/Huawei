@@ -15,7 +15,7 @@ void printArr(string arr[], int nlines){
     getchar();
 }
 
-
+//TODO: сделть if (файл непрочитан) error
 //-------------------------------------------------------------------------------------
 #define fldt_ fldt ->
 

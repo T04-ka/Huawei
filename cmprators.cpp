@@ -56,7 +56,7 @@ int strcmpfrmstrstrttostrend(const void *s1ptr, const void *s2ptr){
     diff = tolower(*s1) - tolower(*s2);
 
 
-    printf("cpm(%s, %s) = %d\n", s1, s2, diff);
+    //printf("cpm(%s, %s) = %d\n", s1, s2, diff);
     return diff;
 }
 
@@ -70,7 +70,7 @@ int scmpfrmstrendtostrstrt(const void *s1ptr, const void *s2ptr){
     size_t s1ln = (*(const string *) s1ptr).len;
     size_t s2ln = (*(const string *) s2ptr).len;
 
-    int d = 0;
+    int diff = 0;
 
     const char *s1cmpptr = s1 + s1ln - 1;
     const char *s2cmpptr = s2 + s2ln - 1;
@@ -89,11 +89,11 @@ int scmpfrmstrendtostrstrt(const void *s1ptr, const void *s2ptr){
             continue;
         }
 
-        d = tolower(*s1cmpptr--) - tolower(*s2cmpptr--);
+        diff = tolower(*s1cmpptr--) - tolower(*s2cmpptr--);
 
-        if (d != 0) {
+        if (diff != 0) {
 
-            return d;
+            return diff;
         }
     }
 
@@ -107,9 +107,9 @@ int scmpfrmstrendtostrstrt(const void *s1ptr, const void *s2ptr){
         s1cmpptr--;
     }
 
-    d = tolower(*s1cmpptr) - tolower(*s2cmpptr);
+    diff = tolower(*s1cmpptr) - tolower(*s2cmpptr);
 
-    return d;
+    return diff;
 }
 
 

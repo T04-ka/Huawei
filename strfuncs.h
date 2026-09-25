@@ -41,4 +41,13 @@ void prsdata(struct filedata* fldt);
 
 
 
+//-------------------------------------------------------------------------------------
+/// Frees the memory allocated for the file data structure and its data.
+///
+/// @param fldt Pointer to the file data structure.
+//-------------------------------------------------------------------------------------
+void filedatastrdestr(struct filedata* fldt);
+
+
+
 #endif

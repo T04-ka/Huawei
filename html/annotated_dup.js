@@ -1,4 +1,5 @@
 var annotated_dup =
 [
-    [ "filedata", "structfiledata.html", "structfiledata" ]
+    [ "filedata", "structfiledata.html", null ],
+    [ "string", "structstring.html", null ]
 ];
