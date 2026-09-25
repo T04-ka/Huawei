@@ -7,13 +7,10 @@
 #include <stdlib.h>
 
 
-#define sortprint(A, B) sqsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), B); \
-                        printf("\n" A ":\n");                                                                              \
-                        printArr(fldt.prsdbffr, fldt.nlns);
-
 int main(){
 
-    const char * flnm = "ASPushkinEvgeniyOnegin.txt";
+    //const char * flnm = "ASPushkinEvgeniyOnegin.txt";
+    const char* flnm = "inp.txt";
 
     filedata fldt = {.flnm = flnm};
 
@@ -40,5 +37,3 @@ int main(){
     free(fldt.rdbffr);
     free(fldt.prsdbffr);
 }
-
-#undef sortprint

@@ -2,8 +2,6 @@
 
 #include "strfuncs.h"
 
-
-
 //-------------------------------------------------------------------------------------
 void printArr(string arr[], int nlines){
 
@@ -19,19 +17,20 @@ void printArr(string arr[], int nlines){
 
 
 //-------------------------------------------------------------------------------------
+#define fldt_ fldt ->
+
 void rdfrmfl(struct filedata* fldt){
 
-    //read
-    fldt -> sz = rdflsz(fldt -> flnm);
-    fldt -> rdbffr = (char*) calloc(fldt -> sz + 1, 1);
+    fldt_ sz = rdflsz(fldt_ flnm);
+    fldt_ rdbffr = (char*) calloc(fldt_ sz + 1, 1);
 
-    FILE* file = fopen(fldt -> flnm, "r");
-    fread(fldt -> rdbffr, sizeof(char), fldt -> sz, file);
+    FILE* file = fopen(fldt_ flnm, "r");
+    fread(fldt_ rdbffr, sizeof(char), fldt_ sz, file);
     fclose(file);
 
     prsdata(fldt);
 
 }
 
-
+#undef fldt_
 //-------------------------------------------------------------------------------------

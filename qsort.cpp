@@ -37,11 +37,10 @@ void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr,
     size_t leftbrdr = 0;
     size_t rightbrdr = arrsize/elemsize - 1;
 
-    if (leftbrdr >= rightbrdr || arrsize <= 0){
+    if (leftbrdr >= rightbrdr || arrsize <= 0) {
 
         return;
     }
-
     size_t leftptr = leftbrdr;
     size_t rightptr = rightbrdr;
 
@@ -49,7 +48,7 @@ void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr,
 
     void* pivot = (void*) ((char*) arr + adress);
 
-    while (leftptr < rightptr){
+    while (leftptr < rightptr) {
 
         if ((*cmp)((void*) ((char*) arr + elemsize * leftptr), pivot) >= 0) {
 
@@ -58,14 +57,28 @@ void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr,
                 --rightptr;
             }
 
-            swap((void*) ((char*) arr + elemsize * leftptr), (void*) ((char*) arr + elemsize * rightptr), elemsize);
-        }
+            void* ptr1toswp = (void*) ((char*) arr + elemsize * leftptr);
+            void* ptr2toswp = (void*) ((char*) arr + elemsize * rightptr);
 
+            if (ptr1toswp == pivot) {
+
+                pivot = ptr2toswp;
+            }
+            else if (ptr2toswp == pivot) {
+
+                pivot = ptr1toswp;
+            }
+
+            swap(ptr1toswp, ptr2toswp, elemsize);
+        }
         leftptr++;
     }
 
-    qsort(arr, elemsize, elemsize * (leftptr - leftbrdr), cmp);
-    qsort((void*) ((char*) arr + elemsize * (rightptr + 1)), elemsize, elemsize * (rightbrdr - rightptr), cmp);
+    size_t indpivot = (size_t) ((char*) pivot - (char*) arr) / elemsize;
+
+    qsort(arr, elemsize, elemsize * (indpivot - leftbrdr), cmp);
+
+    qsort((void*) ((char*) arr + (indpivot + 1) * elemsize), elemsize, elemsize * (rightbrdr - indpivot), cmp);
 }
 
 
