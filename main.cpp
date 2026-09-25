@@ -1,5 +1,6 @@
 #include "io.h"
 #include "structs.h"
+#include "qsort.h"
 #include "sqsort.h"
 #include "cmprators.h"
 
@@ -9,8 +10,8 @@
 
 int main(){
 
-    //const char * flnm = "ASPushkinEvgeniyOnegin.txt";
-    const char* flnm = "inp.txt";
+    const char * flnm = "ASPushkinEvgeniyOnegin.txt";
+    //const char* flnm = "inp.txt";
 
     filedata fldt = {.flnm = flnm};
 
@@ -19,13 +20,11 @@ int main(){
     printf("default Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 
-    //sortprint("First cmp Onegin", strcmpfrsmstrstrttostrend);
-
     qsort(fldt.prsdbffr, (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), strcmpfrmstrstrttostrend);
     printf("First cmp Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 
-    sqsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), scmpfrmstrendtostrstrt);
+    myqsort(fldt.prsdbffr, sizeof(fldt.prsdbffr[0]), sizeof(fldt.prsdbffr[0]) * (size_t) fldt.nlns, scmpfrmstrendtostrstrt);
     printf("Second cmp Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 

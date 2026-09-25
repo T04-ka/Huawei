@@ -122,7 +122,7 @@ void printArr(const char **arr, size_t size, size_t lB, size_t rB, size_t l, siz
 
 
 //----------------------------------------------------------------------------------------------------------------
-void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, void *e2ptr)){
+void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(const void *e1ptr, const void *e2ptr)){
 
             assert(arr != NULL);
 
@@ -170,9 +170,9 @@ void qsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, v
 
                 //printf("Strcmp = %d\n",(*cmp)(arr[leftptr], ));
 
-                if ((*cmp)((void*) ((char*) arr + elemsize * leftptr), pivot) >= 0) {/////////////////////////////////////////////////////////////////////////
+                if ((*cmp)((const void*) ((char*) arr + elemsize * leftptr), (const void*) pivot) >= 0) {/////////////////////////////////////////////////////////////////////////
 
-                    while (rightptr > leftptr && (*cmp)((void*) ((char*) arr + elemsize * rightptr), pivot) > 0)/////////////////////////////////////////////////////////////////////////
+                    while (rightptr > leftptr && (*cmp)((const void*) ((char*) arr + elemsize * rightptr), (const void*) pivot) > 0)/////////////////////////////////////////////////////////////////////////
                     {
                         pdbg("Rfind cicl\n");
                         --rightptr;/////////////////////////////////////////////////////////////////////////

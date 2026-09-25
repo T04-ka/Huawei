@@ -1,21 +1,4 @@
-#include <stdio.h>
-
-
-//----------------------------------------------------------------------------------------------------------------
-/// Sorting the void* array with personal comparator given
-///
-/// @param[in] arr[]     Array with data
-/// @param[in] elemsize  Size of one array element in bytes
-/// @param[in] arrsize   Size of array in bytes
-/// @param[in] cmp       Personal comparator
-///
-/// @note Comparator must return 0 if elements are equal,
-///                              positive int if first elem > second elem,
-///                              negative int if first elem < second elem.
-///
-/// @note DO NOT USE FOR 3 ELEMENTS
-//----------------------------------------------------------------------------------------------------------------
-void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *a, void *b));
+#include "qsort.h"
 
 
 
@@ -32,7 +15,7 @@ void swap(void* e1ptr, void* e2ptr, size_t size);
 
 
 //----------------------------------------------------------------------------------------------------------------
-void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr, void *e2ptr)){
+void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(const void *e1ptr, const void *e2ptr)){
 
     size_t leftbrdr = 0;
     size_t rightbrdr = arrsize/elemsize - 1;
@@ -76,9 +59,9 @@ void myqsort(void* arr, size_t elemsize, size_t arrsize, int (*cmp)(void *e1ptr,
 
     size_t indpivot = (size_t) ((char*) pivot - (char*) arr) / elemsize;
 
-    qsort(arr, elemsize, elemsize * (indpivot - leftbrdr), cmp);
+    myqsort(arr, elemsize, elemsize * (indpivot - leftbrdr), cmp);
 
-    qsort((void*) ((char*) arr + (indpivot + 1) * elemsize), elemsize, elemsize * (rightbrdr - indpivot), cmp);
+    myqsort((void*) ((char*) arr + (indpivot + 1) * elemsize), elemsize, elemsize * (rightbrdr - indpivot), cmp);
 }
 
 
