@@ -20,14 +20,13 @@ int chrncnt(char* buf, char smpl, size_t size){
     return cnt;
 }
 
+#include <assert.h>
 
 //-------------------------------------------------------------------------------------
-long long rdflsz(const char* flnm){
+long long rdflsz(FILE* fl){
 
     struct stat statdata = {};
-    int err = stat(flnm, &statdata);
-
-
+    int err = fstat(fileno(fl), &statdata);
 
     return (!err) ? statdata.st_size : -1;
 }
@@ -67,7 +66,7 @@ void prsdata(struct filedata* fldt){
 
 void filedatastrdestr(struct filedata* fldt){
 
-    fldt_ flnm = "DED_LOH";
+    fldt_ fl = NULL;
     fldt_ sz = -1;
     fldt_ nlns = -1;
     free(fldt_ rdbffr);
@@ -84,6 +83,12 @@ int ioflnmsprs(int argc, char** argv, struct io_data* ionm){
 
         ionm -> inp = argv[1];
         ionm -> out = argv[2];
+        return 0;
+    }
+
+    if (argc == 2){
+
+        ionm -> inp = argv[1];
         return 0;
     }
 

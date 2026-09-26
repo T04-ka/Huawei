@@ -11,7 +11,7 @@ struct string {
 
 
 struct filedata {
-    const char* flnm;
+    FILE* fl;
     size_t sz;
     int nlns;
     char *rdbffr;

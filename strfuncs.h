@@ -26,7 +26,7 @@ int chrncnt(char* line, char smpl, size_t size);
 /// @return Size of the file in bytes
 ///
 //-------------------------------------------------------------------------------------
-long long rdflsz(const char* flnm);
+long long rdflsz(FILE* fl);
 
 
 
@@ -50,6 +50,16 @@ void prsdata(struct filedata* fldt);
 void filedatastrdestr(struct filedata* fldt);
 
 
+
+//-------------------------------------------------------------------------------------
+/// Parses the input and output file names from the command line arguments.
+///
+/// @param argc Number of command line arguments.
+/// @param argv Array of command line arguments.
+/// @param ionm Pointer to the io_data structure to store the parsed names.
+///
+/// @return 0 on success, non-zero on failure.
+//-------------------------------------------------------------------------------------
 int ioflnmsprs(int argc, char** argv, struct io_data* ionm);
 
 
