@@ -1,6 +1,5 @@
 #include "strfuncs.h"
 
-#include "structs.h"
 #include <sys/stat.h>
 #include <stdlib.h>
 
@@ -23,11 +22,14 @@ int chrncnt(char* buf, char smpl, size_t size){
 
 
 //-------------------------------------------------------------------------------------
-size_t rdflsz(const char* flnm){
+long long rdflsz(const char* flnm){
 
     struct stat statdata = {};
-    stat(flnm, &statdata);
-    return (size_t) statdata.st_size;
+    int err = stat(flnm, &statdata);
+
+
+
+    return (!err) ? statdata.st_size : -1;
 }
 
 
@@ -73,6 +75,20 @@ void filedatastrdestr(struct filedata* fldt){
 }
 
 #undef fldt_
+
+
+//-------------------------------------------------------------------------------------
+int ioflnmsprs(int argc, char** argv, struct io_data* ionm){
+
+    if (argc == 3){
+
+        ionm -> inp = argv[1];
+        ionm -> out = argv[2];
+        return 0;
+    }
+
+    return -1;
+}
 
 
 //-------------------------------------------------------------------------------------

@@ -18,4 +18,9 @@ struct filedata {
     string *prsdbffr;
 };
 
+struct io_data {
+    const char* inp;
+    const char* out;
+};
+
 #endif

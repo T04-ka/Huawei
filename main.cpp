@@ -7,20 +7,34 @@
 #include <cstdlib>
 #include <stdlib.h>
 
-// TODO сделать argc argv c именами файлов
+// TODO сделать argc argv c именами файлов DONE
 // carambaswitcher!!
 // TODO: сделать свой вывод буффера через puts со скипом \0
-// TODO: сделать отдельную функцию для free всего с уничтоженем всех данных
-int main(){
+// TODO: сделать отдельную функцию для free всего с уничтоженем всех данных DONE
 
-    const char * flnm = "ASPushkinEvgeniyOnegin.txt";
+#define CHCKERR(A)  if (err) {                                      \
+                                                                    \
+                        printf(A);                                  \
+                        return 1;                                   \
+                    }
+
+int main(int argc, char** argv){
+
+    struct io_data io_data = {};
+
+    int err = ioflnmsprs(argc, argv, &io_data);
+    CHCKERR("Wrong parametrs number.\n");
+
+    //const char * flnm = "ASPushkinEvgeniyOnegin.txt";
     //const char* flnm = "inp.txt";
 
-    filedata fldt = {.flnm = flnm};
+    filedata fldt = {.flnm = io_data.inp};
 
-    rdfrmfl(&fldt);
 
-    printf("default Onegin:\n");
+    err = rdfrmfl(&fldt);
+    CHCKERR("Cannot find input file.\n");
+
+    printf("Default Onegin:\n");
     printArr(fldt.prsdbffr, fldt.nlns);
 
     qsort(fldt.prsdbffr, (size_t) fldt.nlns, sizeof(fldt.prsdbffr[0]), strcmpfrmstrstrttostrend);

@@ -19,9 +19,16 @@ void printArr(string arr[], int nlines){
 //-------------------------------------------------------------------------------------
 #define fldt_ fldt ->
 
-void rdfrmfl(struct filedata* fldt){
+int rdfrmfl(struct filedata* fldt){
 
-    fldt_ sz = rdflsz(fldt_ flnm);
+    long long sz = rdflsz(fldt_ flnm);
+
+    if (sz == -1){
+
+        return 1;
+    }
+
+    fldt_ sz = (size_t) sz;
     fldt_ rdbffr = (char*) calloc(fldt_ sz + 1, 1);
 
     FILE* file = fopen(fldt_ flnm, "r");
@@ -30,6 +37,7 @@ void rdfrmfl(struct filedata* fldt){
 
     prsdata(fldt);
 
+    return 0;
 }
 
 #undef fldt_

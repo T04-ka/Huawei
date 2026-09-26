@@ -2,6 +2,7 @@
 #define STRFUNCS_H
 
 #include <stdio.h>
+#include "structs.h"
 
 //-------------------------------------------------------------------------------------
 /// Counts the number of occurrences of a character in a buffer.
@@ -25,7 +26,7 @@ int chrncnt(char* line, char smpl, size_t size);
 /// @return Size of the file in bytes
 ///
 //-------------------------------------------------------------------------------------
-size_t rdflsz(const char* flnm);
+long long rdflsz(const char* flnm);
 
 
 
@@ -48,6 +49,8 @@ void prsdata(struct filedata* fldt);
 //-------------------------------------------------------------------------------------
 void filedatastrdestr(struct filedata* fldt);
 
+
+int ioflnmsprs(int argc, char** argv, struct io_data* ionm);
 
 
 #endif

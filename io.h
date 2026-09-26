@@ -22,7 +22,7 @@ void printArr(string arr[], int nlines);
 /// @param[in] fldt The filedata struct to read into.
 ///
 //-------------------------------------------------------------------------------------
-void rdfrmfl(struct filedata* filedata);
+int rdfrmfl(struct filedata* filedata);
 
 
 
